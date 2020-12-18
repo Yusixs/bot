@@ -1,0 +1,25 @@
+module.exports.run = async (bot, message, args) => {
+	const tagName = args.shift();
+	const tagDescription = args.join(' ');
+	try {
+		const tag = await Tags.create({
+			name: tagName,
+			description: tagDescription,
+			username: message.author.username,
+		});
+		return message.reply(`Tag ${tag.name} added.`);
+	}
+	catch (e) {
+
+	}
+};
+
+module.exports.help = {
+	name: 'addtag',
+	aliases: ['newtag'],
+	description: 'Creates a new Tag',
+	guildOnly: true,
+	args: true,
+	usage: '<tagname> <description>',
+	cooldown: 5,
+};
